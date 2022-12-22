@@ -1,25 +1,72 @@
-import logo from './logo.svg';
-import './App.css';
+import styles from'./App.module.css'
 
-function App() {
+import Cards from './components/Cards/Cards'
+import Nav from "./components/Nav/Nav"
+import About from "./components/About/About"
+import Detail from "./components/Detail/Detail"
+import {Routes,Route,Link} from "react-router-dom"
+
+import { useState} from 'react'
+
+
+
+
+function App () {
+
+
+  const [personajes,setPersonajes]= useState(
+    [])
+
+ const onSearch = (iDPersonaje)=>{
+  
+    fetch(`https://rickandmortyapi.com/api/character/${iDPersonaje}`)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.name) {
+          setPersonajes((oldChars) => [...oldChars, data]);
+      } else {
+          window.alert('No hay personajes con ese ID');
+      }
+      
+    });
+   
+ }
+
+ const handleCloseCard =(idBorrar)=>{
+
+    const newPersonajes = personajes.filter((personaje)=>personaje.id!==idBorrar)
+    
+    console.log(newPersonajes);
+    
+    setPersonajes(newPersonajes)
+    
+   
+    ;
+ }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`${styles.imagenFondo} ${styles.body}`}>
+
+        <div>
+            <Nav onSearch ={onSearch} />
+          </div>
+      <Routes>
+
+        <Route path="/home"
+          element={<Cards
+                   personajes={personajes}
+                   onClose={handleCloseCard}/>} />
+
+
+        <Route path='/about' element={<About />} />
+
+        <Route path='/detail/:detailId' element={<Detail />} />
+        
+      </Routes>
+      
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

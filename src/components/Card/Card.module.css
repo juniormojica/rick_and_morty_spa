@@ -1,0 +1,30 @@
+
+.space { 
+    display:inline-block;
+    padding:20px;
+    margin: 0.7em;
+    background: rgb(126, 143, 109);
+    border-radius: 0.5em;
+}
+
+.center {
+   
+    text-align: center;
+    width: 100%;
+}
+.buttonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.closeButton{
+    display: inline-block;
+    border-radius: 0.5em;
+    width: 15%;
+    align-items: center;
+}
+
+.characterImage { 
+    border-radius: 0.5em;
+}
