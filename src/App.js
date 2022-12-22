@@ -4,6 +4,7 @@ import Cards from './components/Cards/Cards'
 import Nav from "./components/Nav/Nav"
 import About from "./components/About/About"
 import Detail from "./components/Detail/Detail"
+import PageNotFound from "./components/PageNotFound/PageNotFound"
 import {Routes,Route,Link} from "react-router-dom"
 
 import { useState} from 'react'
@@ -62,7 +63,7 @@ function App () {
 
         <Route path='/about' element={<About />} />
 
-       
+        <Route path="/*" element={<PageNotFound/> } />
         
       </Routes>
       
