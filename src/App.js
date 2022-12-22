@@ -53,15 +53,16 @@ function App () {
           </div>
       <Routes>
 
-        <Route path="/home"
+        <Route path="/"
           element={<Cards
                    personajes={personajes}
                    onClose={handleCloseCard}/>} />
 
+        <Route path='/detail/:detailId' element={<Detail />} />
 
         <Route path='/about' element={<About />} />
 
-        <Route path='/detail/:detailId' element={<Detail />} />
+       
         
       </Routes>
       

@@ -12,7 +12,7 @@ const Nav =(props)=>{
             <SearchBar 
                 onSearch = {props.onSearch  } />
         <div>
-                <Link to="/home">Home</Link>
+                <Link to="/">Home</Link>
                 <Link to="/about">About Me</Link>
         </div>
            
