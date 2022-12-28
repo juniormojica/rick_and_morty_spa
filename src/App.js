@@ -1,11 +1,13 @@
 import styles from'./App.module.css'
-
 import Cards from './components/Cards/Cards'
 import Nav from "./components/Nav/Nav"
 import About from "./components/About/About"
 import Detail from "./components/Detail/Detail"
 import PageNotFound from "./components/PageNotFound/PageNotFound"
-import {Routes,Route,Link} from "react-router-dom"
+import Form from './components/Form/Form'
+import {Routes,Route,Link,useLocation} from "react-router-dom"
+
+
 
 import { useState} from 'react'
 
@@ -15,9 +17,16 @@ import { useState} from 'react'
 function App () {
 
 
-  const [personajes,setPersonajes]= useState(
-    [])
+  const [personajes,setPersonajes]= useState([])
 
+  const [acces,setAcces] = useState(false)
+  const username = "juniormojica26@gmail.com";
+  const password = "A182jab1ur36*";
+
+ const onLogin=(userData)=>{
+
+    console.log(userData);
+ }
  const onSearch = (iDPersonaje)=>{
   
     fetch(`https://rickandmortyapi.com/api/character/${iDPersonaje}`)
@@ -45,19 +54,28 @@ function App () {
     ;
  }
 
+ const location = useLocation()
 
   return (
     <div className={`${styles.imagenFondo} ${styles.body}`}>
 
         <div>
-            <Nav onSearch ={onSearch} />
+          {
+            location.pathname!== "/" && ( <Nav onSearch ={onSearch} />)
+          }
+           
           </div>
       <Routes>
 
-        <Route path="/"
-          element={<Cards
-                   personajes={personajes}
-                   onClose={handleCloseCard}/>} />
+        
+<Route path='/' element={(
+  <>
+  <Cards
+    personajes={personajes}
+   onClose={handleCloseCard}/>
+  <Form onLogin ={onLogin} />                 
+  </>
+)} />
 
         <Route path='/detail/:detailId' element={<Detail />} />
 
