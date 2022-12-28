@@ -14,7 +14,10 @@ const Form = (props)=>{
 
 
 
+
+
     const handleInputChange = (event)=>{
+        
         const property = event.target.name;
         const value = event.target.value;
       
@@ -24,26 +27,24 @@ const Form = (props)=>{
         )
         
       
-            setErrors(validation(
-                {
-                    ...userData,
-                    [property]:value
-                }
-    
-            ))
+        setErrors(validation(
+            {
+                ...userData,
+                [property]: value
+            }
+
+        ))
       
       
     }
-
+ 
   
 
-    const handleSubmit = (event)=>{
-        event.preventDefault()
-    }
+   
 
     return (
         <div className={styles.formContainer}>
-            <form action="" className={styles.form} >
+            <form action="" className={styles.form} onSubmit ={(event)=>{props.onLogin(event,userData)}} >
 
                 <label className={styles.formLabel}  htmlFor="user">Usuario:</label>
                 <input
@@ -68,7 +69,9 @@ const Form = (props)=>{
 
                 <button
                  className={`${styles.buttonIngresar} ${(errors.password||errors.username) && styles.errors} `}
-                 onSubmit ={()=>{props.onLogin(userData)}}>
+                 type="submit"
+                 >
+                
                 
                     Ingresar
                  </button>

@@ -5,7 +5,8 @@ import About from "./components/About/About"
 import Detail from "./components/Detail/Detail"
 import PageNotFound from "./components/PageNotFound/PageNotFound"
 import Form from './components/Form/Form'
-import {Routes,Route,Link,useLocation} from "react-router-dom"
+import { useEffect } from 'react'
+import {Routes,Route,Link,useLocation,useNavigate} from "react-router-dom"
 
 
 
@@ -17,15 +18,24 @@ import { useState} from 'react'
 function App () {
 
 
-  const [personajes,setPersonajes]= useState([])
 
-  const [acces,setAcces] = useState(false)
+  const location = useLocation()
+
+  const navigate = useNavigate()
+
+  const [personajes,setPersonajes]= useState([])
+  const [access,setAccess] = useState(false)
+
   const username = "juniormojica26@gmail.com";
   const password = "A182jab1ur36*";
 
- const onLogin=(userData)=>{
+ const onLogin=(event,userData)=>{
+     event.preventDefault();
+    
+    (userData.user===username && userData.password ===password) && (setAccess(true))
 
-    console.log(userData);
+    navigate("/home")
+    
  }
  const onSearch = (iDPersonaje)=>{
   
@@ -54,7 +64,10 @@ function App () {
     ;
  }
 
- const location = useLocation()
+ useEffect(() => {
+  !access && navigate('/');
+}, [access]);
+
 
   return (
     <div className={`${styles.imagenFondo} ${styles.body}`}>
@@ -80,6 +93,9 @@ function App () {
         <Route path='/detail/:detailId' element={<Detail />} />
 
         <Route path='/about' element={<About />} />
+        <Route path='/home' element={<Cards
+    personajes={personajes}
+   onClose={handleCloseCard}/>} />
 
         <Route path="/*" element={<PageNotFound/> } />
         
